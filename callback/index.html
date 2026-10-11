@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tesla OAuth callback</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 40rem; margin: 2rem auto; padding: 0 1rem; }
+    code { word-break: break-all; }
+  </style>
+</head>
+<body>
+  <h1>Tesla OAuth callback</h1>
+  <p>Copy the <code>code</code> query value below and paste it back into Tesla Bot chat to finish login. Do not share it publicly.</p>
+  <p id="out">Loading…</p>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const err = params.get('error');
+    const el = document.getElementById('out');
+    if (err) {
+      el.textContent = 'Error: ' + err + (params.get('error_description') ? ' — ' + params.get('error_description') : '');
+    } else if (code) {
+      el.innerHTML = 'Authorization code:<br><code>' + code + '</code>';
+    } else {
+      el.textContent = 'No code in this URL yet.';
+    }
+  </script>
+</body>
+</html>
